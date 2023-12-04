@@ -11,6 +11,7 @@ import 'moment/locale/es'
 import { CalendarModal } from '../components/calendar/CalendarModal';
 import { useDispatch } from 'react-redux';
 import { openModal } from '@/store/ui/uiSlice';
+import { eventSetActive } from '@/store/calendar/calendarSlice';
 // import { startOpenningModal } from '@/store/ui/thunks';
 
 moment.locale('es');
@@ -40,6 +41,7 @@ export const CalendarScreen = () => {
 
     const onSelectEvent = (e)=>{
         console.log(e)
+        dispatch( eventSetActive(e) )
     };
 
     const onViewChange = (e)=>{
