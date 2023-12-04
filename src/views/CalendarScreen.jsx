@@ -12,6 +12,7 @@ import { CalendarModal } from '../components/calendar/CalendarModal';
 import { useDispatch } from 'react-redux';
 import { openModal } from '@/store/ui/uiSlice';
 import { eventSetActive } from '@/store/calendar/calendarSlice';
+import { AddNewFab } from '@/components/ui/AddNewFab';
 // import { startOpenningModal } from '@/store/ui/thunks';
 
 moment.locale('es');
@@ -83,6 +84,8 @@ export const CalendarScreen = () => {
             startAccessor="start"
             view={lastView}
         />
+
+        <AddNewFab />
 
         <CalendarModal />
     </div>
