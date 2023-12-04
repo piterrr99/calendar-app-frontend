@@ -1,5 +1,5 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import React from 'react'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import React from 'react';
 
 import { CalendarScreen } from '../views/CalendarScreen'
 import { LoginScreen } from '../views/LoginScreen'
