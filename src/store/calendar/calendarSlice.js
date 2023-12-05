@@ -21,7 +21,7 @@ const CalendarSlice = createSlice({
     initialState,
     reducers: {
         eventAddNew: (state, {payload})=>{
-
+            state.events.push( payload )
         },
         eventSetActive: (state, {payload})=>{
             state.activeEvent = { ...payload }

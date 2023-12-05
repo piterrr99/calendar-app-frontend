@@ -41,8 +41,8 @@ export const CalendarScreen = () => {
     };
 
     const onSelectEvent = (e)=>{
-        console.log(e)
         dispatch( eventSetActive(e) )
+        dispatch( openModal() )
     };
 
     const onViewChange = (e)=>{

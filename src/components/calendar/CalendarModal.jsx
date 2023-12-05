@@ -10,6 +10,7 @@ import 'react-clock/dist/Clock.css';
 
 import '../../css/modal.css'
 import { closeModal } from '@/store/ui/uiSlice';
+import { eventAddNew } from '@/store/calendar/calendarSlice';
 
 const customStyles = {
     content: {
@@ -63,6 +64,7 @@ export const CalendarModal = () => {
     }
 
     const handleStartDateChange = (e)=>{
+        console.log(e)
         setStartDate(e);
         setFormValues({
             ...formValues,
@@ -86,6 +88,16 @@ export const CalendarModal = () => {
         }
 
         setIsTitleValid( true );
+        dispatch( 
+            eventAddNew( {
+                ...formValues,
+                id: new Date().getTime(),
+                user: {
+                    _id: '123',
+                    name: 'Pedro'
+                }
+            } ) 
+        )
         handleCloseModal()
 
     }
