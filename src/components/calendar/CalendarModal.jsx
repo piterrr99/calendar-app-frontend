@@ -1,7 +1,7 @@
 import DateTimePicker from 'react-datetime-picker';
 import Modal from 'react-modal';
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import 'react-datetime-picker/dist/DateTimePicker.css';
@@ -10,7 +10,8 @@ import 'react-clock/dist/Clock.css';
 
 import '../../css/modal.css'
 import { closeModal } from '@/store/ui/uiSlice';
-import { eventAddNew } from '@/store/calendar/calendarSlice';
+import { eventAddNew, eventClearActiveEvent } from '@/store/calendar/calendarSlice';
+import Swal from 'sweetalert2';
 
 const customStyles = {
     content: {
@@ -29,6 +30,13 @@ Modal.setAppElement('#root');
 const now = moment().minutes(0).seconds(0).add(1, 'hours')
 const anHourFromNow = now.clone().add(1, 'hours')
 
+const initiEvent = {
+    title: '',
+    notes: '',
+    start: now.toDate(),
+    end: anHourFromNow.toDate()
+}
+
 
 export const CalendarModal = () => {
 
@@ -36,13 +44,9 @@ export const CalendarModal = () => {
     const [endDate, setEndDate] = useState(anHourFromNow.toDate())
     const [isTitleValid, setIsTitleValid] = useState(true)
 
-    const [formValues, setFormValues] = useState({
-        title: 'Evento',
-        notes: '',
-        start: now.toDate(),
-        end: anHourFromNow.toDate()
-    });
+    const [formValues, setFormValues] = useState( initiEvent );
 
+    const { activeEvent } = useSelector( state => state.calendar )
     const {isModalOpen} = useSelector( state=> state.ui )
     const dispatch = useDispatch()
     
@@ -57,14 +61,26 @@ export const CalendarModal = () => {
 
     }
 
+    useEffect(() => {
+      
+        if( activeEvent ){
+            setFormValues(activeEvent)
+        } else{
+            setFormValues( initiEvent )
+        }
+      
+    }, [activeEvent])
+    
+
     const handleCloseModal = () => {
     
-        dispatch( closeModal() )    
+        dispatch( closeModal() );
+        dispatch( eventClearActiveEvent() )
+        setFormValues( initiEvent );    
         
     }
 
     const handleStartDateChange = (e)=>{
-        console.log(e)
         setStartDate(e);
         setFormValues({
             ...formValues,
@@ -85,6 +101,13 @@ export const CalendarModal = () => {
         
         if( title.trim().length < 2 ){
             return setIsTitleValid(false);
+        }
+
+        const momentStart = moment(start);
+        const momentEnd = moment(end);
+
+        if (momentEnd.isSameOrBefore(momentStart)) {
+            return Swal.fire( 'Error', 'La hora de finalización no puede ser igual a la hora de inicio', 'error' )
         }
 
         setIsTitleValid( true );
@@ -133,6 +156,7 @@ export const CalendarModal = () => {
                             locale='es'
                             onChange={handleEndDateChange}
                             minDate={ startDate }
+                            
                             value={endDate}
                         />
                     </div>
