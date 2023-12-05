@@ -10,7 +10,7 @@ import 'react-clock/dist/Clock.css';
 
 import '../../css/modal.css'
 import { closeModal } from '@/store/ui/uiSlice';
-import { eventAddNew, eventClearActiveEvent } from '@/store/calendar/calendarSlice';
+import { eventAddNew, eventClearActiveEvent, eventUpdated } from '@/store/calendar/calendarSlice';
 import Swal from 'sweetalert2';
 
 const customStyles = {
@@ -111,16 +111,23 @@ export const CalendarModal = () => {
         }
 
         setIsTitleValid( true );
-        dispatch( 
-            eventAddNew( {
-                ...formValues,
-                id: new Date().getTime(),
-                user: {
-                    _id: '123',
-                    name: 'Pedro'
-                }
-            } ) 
-        )
+
+        if (activeEvent) {
+            dispatch( eventUpdated( formValues ) )
+        } else {
+
+            dispatch( 
+                eventAddNew( {
+                    ...formValues,
+                    id: new Date().getTime(),
+                    user: {
+                        _id: '123',
+                        name: 'Pedro'
+                    }
+                } ) 
+            )
+        }
+
         handleCloseModal()
 
     }
@@ -135,7 +142,7 @@ export const CalendarModal = () => {
                 overlayClassName='modal-fondo'
                 style={customStyles}
             >
-                <h1> Nuevo evento </h1>
+                <h1> { (activeEvent) ? 'Editar evento' : 'Nuevo evento'} </h1>
                 <hr />
                 <form className="container" onSubmit={handleFormSubmit} >
 

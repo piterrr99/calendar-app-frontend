@@ -21,3 +21,11 @@ body, html{
     position: fixed;
     right: 40px;
 }
+
+.fab-danger{
+    bottom: 50px;
+    left: 40px;
+    padding: 10px;
+    position: fixed;
+    z-index: 100;
+}
