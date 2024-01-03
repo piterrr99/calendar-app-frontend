@@ -38,8 +38,8 @@ export const CalendarScreen = () => {
 
     const { activeEvent, events } = useSelector( state => state.calendar )
 
-    const onDoubleClick = (e)=>{
-        console.log('doble click')
+    const onDoubleClick = ()=>{
+        
         dispatch( openModal() )
     };
 
@@ -49,7 +49,9 @@ export const CalendarScreen = () => {
     };
 
     const onSelectSlot = ()=>{
+
         dispatch( eventClearActiveEvent() )
+
     }
 
     const onViewChange = (e)=>{
