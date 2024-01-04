@@ -1,6 +1,7 @@
 import { fetchConToken, fetchSinToken } from "@/helpers/fetch"
 import { authDoneChecking, authLogin, authLogout } from "./authSlice";
 import Swal from "sweetalert2";
+import { eventLogout } from "../calendar/calendarSlice";
 
 
 export const startChecking = ()=>{
@@ -64,6 +65,7 @@ export const startLogout = ()=>{
     return (dispatch)=>{
 
         localStorage.clear();
+        dispatch( eventLogout() )
         dispatch( authLogout() );
 
     };
