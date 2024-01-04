@@ -34,7 +34,7 @@ export const AppRouter = () => {
 
   return (
     
-    <BrowserRouter>
+    <BrowserRouter basename= { import.meta.env.DEV ? '/' : '/calendar-app-frontend/' } >
 
 
 
