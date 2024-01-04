@@ -22,4 +22,6 @@ export default defineConfig(({command})=>{
     config.base = '/calendar-app-frontend/'
   }
 
+  return config;
+  
 })
