@@ -16,9 +16,12 @@ const authSlice = createSlice({
                 checking: false,
                 ...payload
             }
+        },
+        authDoneChecking: ( state )=>{
+            state.checking = false;
         }
     }
 });
 
-export const { authLogin } = authSlice.actions;
+export const { authLogin, authDoneChecking } = authSlice.actions;
 export default authSlice.reducer
