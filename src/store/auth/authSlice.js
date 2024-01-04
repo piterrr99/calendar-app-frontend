@@ -17,11 +17,16 @@ const authSlice = createSlice({
                 ...payload
             }
         },
+        authLogout: (state)=>{
+            return state = {
+                checking: false
+            };
+        },
         authDoneChecking: ( state )=>{
             state.checking = false;
         }
     }
 });
 
-export const { authLogin, authDoneChecking } = authSlice.actions;
+export const { authLogin, authLogout, authDoneChecking } = authSlice.actions;
 export default authSlice.reducer

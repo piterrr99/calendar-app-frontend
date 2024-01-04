@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/login.css'
 import { useForm } from '@/hooks/useForm';
 import { useDispatch } from 'react-redux';
-import { startRegister, stratLogin } from '@/store/auth/thunks';
+import { startRegister, startLogin } from '@/store/auth/thunks';
 import Swal from 'sweetalert2';
 
 export const LoginScreen = () => {
@@ -28,7 +28,7 @@ export const LoginScreen = () => {
 
         e.preventDefault();
 
-        dispatch( stratLogin(loginEmail, loginPassword) );
+        dispatch( startLogin(loginEmail, loginPassword) );
 
     };
 

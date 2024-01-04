@@ -1,5 +1,5 @@
 import { fetchConToken, fetchSinToken } from "@/helpers/fetch"
-import { authDoneChecking, authLogin } from "./authSlice";
+import { authDoneChecking, authLogin, authLogout } from "./authSlice";
 import Swal from "sweetalert2";
 
 
@@ -26,19 +26,17 @@ export const startChecking = ()=>{
 
             dispatch( authDoneChecking() )
 
-        }
-
-    }
-
-}
+        };
+    };
+};
 
 
-export const stratLogin = ( email, password )=>{
+export const startLogin = ( email, password )=>{
 
     return async( dispatch )=>{
         
         const resp = await fetchSinToken( 'auth', {email, password}, 'POST' );
-        const body = await resp.json()
+        const body = await resp.json();
 
         if( body.ok ){
 
@@ -56,7 +54,17 @@ export const stratLogin = ( email, password )=>{
 
             Swal.fire( 'Error', body.msg, 'error' );
 
-        }
+        };
+    };
+};
+
+
+export const startLogout = ()=>{
+
+    return (dispatch)=>{
+
+        localStorage.clear();
+        dispatch( authLogout() );
 
     };
 };
