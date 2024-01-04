@@ -1,4 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
+
+import auth from './auth/authSlice'
 import calendar from './calendar/calendarSlice'
 import ui from './ui/uiSlice';
 
@@ -6,7 +8,8 @@ import ui from './ui/uiSlice';
 
 const rootReducer = {
     ui,
-    calendar
+    calendar,
+    auth
 };
 
 export const store = configureStore({
