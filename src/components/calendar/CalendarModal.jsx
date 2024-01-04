@@ -10,8 +10,9 @@ import 'react-clock/dist/Clock.css';
 
 import '../../css/modal.css'
 import { closeModal } from '@/store/ui/uiSlice';
-import { eventAddNew, eventClearActiveEvent, eventUpdated } from '@/store/calendar/calendarSlice';
+import { eventClearActiveEvent} from '@/store/calendar/calendarSlice';
 import Swal from 'sweetalert2';
+import { startAddNew, startUpdatingEvent } from '@/store/calendar/thunks';
 
 const customStyles = {
     content: {
@@ -119,18 +120,11 @@ export const CalendarModal = () => {
         setIsTitleValid( true );
 
         if (activeEvent) {
-            dispatch( eventUpdated( formValues ) )
+            dispatch( startUpdatingEvent( formValues ) )
         } else {
 
             dispatch( 
-                eventAddNew( {
-                    ...formValues,
-                    id: new Date().getTime(),
-                    user: {
-                        _id: '123',
-                        name: 'Pedro'
-                    }
-                } ) 
+                startAddNew( formValues )
             )
         }
 

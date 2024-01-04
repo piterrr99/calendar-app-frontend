@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 
@@ -14,6 +14,7 @@ import { openModal } from '@/store/ui/uiSlice';
 import { eventClearActiveEvent, eventSetActive } from '@/store/calendar/calendarSlice';
 import { AddNewFab } from '@/components/ui/AddNewFab';
 import { DeleteEventFab } from '@/components/ui/DeleteEventFab';
+import { startLoadingEvents } from '@/store/calendar/thunks';
 
 
 moment.locale('es');
@@ -36,7 +37,15 @@ export const CalendarScreen = () => {
     const [lastView, setLastView] = useState( localStorage.getItem('view') || 'month' );
     const dispatch = useDispatch()
 
+    useEffect(() => {
+    
+        dispatch( startLoadingEvents() )
+    
+    }, [])
+    
+
     const { activeEvent, events } = useSelector( state => state.calendar )
+    const { uid } = useSelector( state => state.auth )
 
     const onDoubleClick = ()=>{
         
@@ -62,7 +71,7 @@ export const CalendarScreen = () => {
     const eventStyleGetter = (event, start, end, isSelected)=>{
         
         const style={
-            backgroundColor: '#367CF7',
+            backgroundColor: (event.user._id === uid) ? '#367CF7' : '#465660',
             borderRadius: '0px',
             opacity: 0.8,
             display: 'block',

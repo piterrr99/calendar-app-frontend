@@ -21,6 +21,9 @@ const CalendarSlice = createSlice({
             state.events = state.events.filter( event => event.id !== state.activeEvent.id );
             state.activeEvent = null
         },
+        eventsLoaded: (state, {payload})=>{
+            state.events = payload
+        },
         eventSetActive: (state, {payload})=>{
             state.activeEvent = { ...payload }
         },
@@ -30,5 +33,5 @@ const CalendarSlice = createSlice({
     }
 })
 
-export const { eventAddNew, eventClearActiveEvent, eventDeleted, eventSetActive, eventUpdated } = CalendarSlice.actions
+export const { eventAddNew, eventClearActiveEvent, eventDeleted, eventsLoaded, eventSetActive, eventUpdated } = CalendarSlice.actions
 export default CalendarSlice.reducer

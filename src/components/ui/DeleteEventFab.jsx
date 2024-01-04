@@ -1,4 +1,4 @@
-import { eventDeleted } from '@/store/calendar/calendarSlice'
+import { startDeletingEvent } from '@/store/calendar/thunks'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -7,7 +7,7 @@ export const DeleteEventFab = () => {
   const dispatch = useDispatch()
 
   const handleDeleteNote = ()=>{
-    dispatch( eventDeleted() )
+    dispatch( startDeletingEvent() )
   }
 
   return (
