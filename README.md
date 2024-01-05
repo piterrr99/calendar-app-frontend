@@ -17,4 +17,4 @@ Nuestra aplicación permite a cada usuario gestionar sus propios eventos a trav�
 
 ### Enlaces útiles
 
-- Enlace al Backend: https://calendar-app-backend-sand.vercel.app
+- Código Backend: https://github.com/piterrr99/calendar-app-backend
